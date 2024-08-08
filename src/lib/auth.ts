@@ -57,3 +57,8 @@ export async function updateSession(request: NextRequest) {
   return res;
 }
 
+export async function logout() {
+  const res = NextResponse.redirect('/login');
+  res.cookies.delete('session');
+  return res;
+}
