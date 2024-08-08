@@ -1,6 +1,6 @@
 import React from 'react';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import styles from './blog.module.css';
+import styles from './news.module.css';
 
 const Blog: React.FC = () => {
   const { posts, loading, hasMore, loadMoreTriggerRef } = useInfiniteScroll(10);
