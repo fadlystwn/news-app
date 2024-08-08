@@ -20,6 +20,7 @@ model User {
   phone    String?
   password String
   Profile  Profile?
+  News     News[]   @relation("Author")
 }
 
 model Profile {
@@ -36,4 +37,6 @@ model News {
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  authorId  Int
+  author    User     @relation("Author", fields: [authorId], references: [id])
 }
