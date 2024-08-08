@@ -1,11 +1,17 @@
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
+  --font-serif: "Times New Roman", Georgia, serif;
+  --font-sans: Arial, Helvetica, sans-serif;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
-  --foreground-rgb: 0, 0, 0;
+  --foreground-rgb: 0, 0, 0; /* Text color */
+  --heading-rgb: 33, 33, 33; /* Heading color */
+  --button-bg: 51, 51, 51 ; /* Button background color */
+  --button-text: 255, 255, 255; /* Button text color */
+  --button-border: 0, 97, 255; /* Button border color */
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 
@@ -42,7 +48,11 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
+    --foreground-rgb: 255, 255, 255; /* Text color for dark mode */
+    --heading-rgb: 255, 255, 255; /* Heading color for dark mode */
+    --button-bg: 0, 97, 255; /* Dark mode button background color */
+    --button-text: 255, 255, 255; /* Dark mode button text color */
+    --button-border: 0, 122, 255; /* Dark mode button border color */
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
 
@@ -83,11 +93,41 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  font-family: var(--font-serif); /* Apply serif font to body text */
+  color: rgb(var(--foreground-rgb)); /* Text color */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif); /* Apply serif font to headings */
+  color: rgb(var(--heading-rgb)); /* Heading color */
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button {
+  background-color: rgb(var(--button-bg));
+  color: rgb(var(--button-text));
+  border: 1px solid rgb(var(--button-border));
+  border-radius: var(--border-radius);
+  padding: 10px 20px;
+  font-family: var(--font-sans); /* Use sans-serif for button text */
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+button:hover,
+button:focus {
+  background-color: rgb(64, 64, 64);
+  border-color: rgb(34, 34, 34);
+}
+
+button:active {
+  background-color: rgb(100, 100, 100);
+  border-color: rgb(32, 32, 32);
 }
 
 .error-field {
