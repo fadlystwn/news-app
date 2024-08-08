@@ -1,40 +1,50 @@
+/* Adjusted styles */
+
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4;
-  }
-  
-  .form {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 100%;
-  }
-  
-  .input {
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .button {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #0070f3;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  
-  .button:hover {
-    background-color: #005bb5;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgb(var(--background-start-rgb));
+}
+
+.form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(var(--foreground-rgb), 0.2);
+  border-radius: var(--border-radius);
+  background-color: #f9f9f9;
+  font-family: var(--font-sans);
+}
+
+.button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: rgb(var(--button-bg));
+  border: 1px solid rgb(var(--button-border));
+  border-radius: var(--border-radius);
+  color: rgb(var(--button-text));
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.button:hover {
+  background-color: rgb(0, 97, 255);
+  border-color: rgb(0, 72, 220);
+}
+
+.button:active {
+  background-color: rgb(0, 72, 220);
+  border-color: rgb(0, 55, 176);
+}
