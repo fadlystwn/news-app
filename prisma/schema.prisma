@@ -14,11 +14,12 @@ datasource db {
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
-  name    String
-  email   String   @unique
-  phone   String?
-  Profile Profile?
+  id       Int      @id @default(autoincrement())
+  name     String
+  email    String   @unique
+  phone    String?
+  password String
+  Profile  Profile?
 }
 
 model Profile {
