@@ -22,7 +22,6 @@ export async function decrypt(input: string): Promise<any> {
     return payload;
   } catch (error) {
     console.error('Failed to verify JWT:', error);
-    throw new Error('Invalid or expired token.');
   }
 }
 
@@ -38,15 +37,25 @@ export async function handleSesion(sessionData: any) {
     });
 
   } catch (error) {
+    cookies().delete('session');
     console.error('Failed to set session cookie:', error);
     throw new Error('Failed to handle login.');
   }
 }
 
 export async function getSession() {
-  const session = cookies().get("session")?.value;
-  if (!session) return null;
-  return decrypt(session);
+  try {
+    const sessionCookie = cookies().get("session");
+    if (!sessionCookie || !sessionCookie.value) return null;
+
+    const session = sessionCookie.value;
+    return decrypt(session);
+  } catch (error) {
+    console.error('Failed to verify session cookie:', error);
+    cookies().delete('session');
+
+    return null;
+  }
 }
 
 export async function updateSession(request: NextRequest) {
