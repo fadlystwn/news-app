@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { updateSession } from './lib/auth'
 
 export function middleware(request: NextRequest) {
   const currentUser = request.cookies.get('session')?.value
 
-  const protectedPages = ['/news']
+  const protectedPages = ['/profile']
 
   const isProtectedPage = protectedPages.some(page => request.nextUrl.pathname.startsWith(page))
 
@@ -11,6 +12,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
+  updateSession(request)
   return NextResponse.next()
 }
 
