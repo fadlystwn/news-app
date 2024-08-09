@@ -39,4 +39,6 @@ model News {
   updatedAt DateTime @updatedAt
   authorId  Int
   author    User     @relation("Author", fields: [authorId], references: [id])
+  imageUrl  String?
+  headline  String?
 }
