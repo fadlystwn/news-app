@@ -48,5 +48,5 @@ export default async function login(prevState: any, formData: FormData) {
     return { message: 'Database Error: Failed to Find User.' };
   }
 
-  redirect('/news')
+  redirect('/profile')
 }
