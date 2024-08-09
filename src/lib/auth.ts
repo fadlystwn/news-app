@@ -76,7 +76,7 @@ export async function updateSession(request: NextRequest) {
   return res;
 }
 
-export async function logout(request: NextRequest) {
+export async function logout() {
   cookies().delete("session");
   redirect('/login')
 }
