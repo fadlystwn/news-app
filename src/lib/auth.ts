@@ -2,6 +2,7 @@
 import { cookies } from 'next/headers';
 import { SignJWT, jwtVerify } from 'jose';
 import { NextRequest, NextResponse } from 'next/server';
+import { redirect } from 'next/navigation';
 
 const secretKey = process.env.SECRET_KEY;
 const key = new TextEncoder().encode(secretKey);
@@ -75,8 +76,7 @@ export async function updateSession(request: NextRequest) {
   return res;
 }
 
-export async function logout() {
-  const res = NextResponse.redirect('/login');
-  res.cookies.delete('session');
-  return res;
+export async function logout(request: NextRequest) {
+  cookies().delete("session");
+  redirect('/login')
 }

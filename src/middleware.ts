@@ -11,9 +11,7 @@ export function middleware(request: NextRequest) {
   if (isProtectedPage && !currentUser) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
-  if (!currentUser && !request.nextUrl.pathname.startsWith('/login')) {
-    return Response.redirect(new URL('/login', request.url))
-  }
+
   updateSession(request)
   return NextResponse.next()
 }
