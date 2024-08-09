@@ -1,7 +1,6 @@
 "use client";
 
-import { redirect } from 'next/navigation';
-import login from './actions';
+import login from '@/actions/login';
 import styles from './login.module.css';
 import { useFormState } from 'react-dom';
 
