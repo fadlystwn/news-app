@@ -1,8 +1,9 @@
-"use client";
-import React, { useState, useEffect, useRef } from 'react';
+'use client'
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import styles from './news.module.css';
 import { News } from '../types/news';
+
 type NewsProps = {
   initialData: News[];
   initialPage: number;
@@ -16,7 +17,7 @@ const NewsPage: React.FC<NewsProps> = ({ initialData, initialPage }) => {
   const [showEndMessage, setShowEndMessage] = useState(false); // Added state
   const loaderRef = useRef<HTMLDivElement>(null);
 
-  const fetchMoreData = async () => {
+  const fetchMoreData = useCallback(async () => {
     if (loading || !hasMore) return;
 
     setLoading(true);
@@ -52,9 +53,12 @@ const NewsPage: React.FC<NewsProps> = ({ initialData, initialPage }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [loading, hasMore, currentPage]);
 
   useEffect(() => {
+    // Capture the current loaderRef value
+    const loaderElement = loaderRef.current;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -66,16 +70,17 @@ const NewsPage: React.FC<NewsProps> = ({ initialData, initialPage }) => {
       }
     );
 
-    if (loaderRef.current) {
-      observer.observe(loaderRef.current);
+    if (loaderElement) {
+      observer.observe(loaderElement);
     }
 
     return () => {
-      if (loaderRef.current) {
-        observer.unobserve(loaderRef.current);
+      if (loaderElement) {
+        observer.unobserve(loaderElement);
       }
     };
-  }, [loading, hasMore]);
+  }, [fetchMoreData]);
+
   return (
     <>
       <div className={styles.gridContainer}>
