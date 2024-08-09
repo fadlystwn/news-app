@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import styles from './news.module.css';
 import { News } from '../types/news';
-
 type NewsProps = {
   initialData: News[];
   initialPage: number;
@@ -34,13 +34,18 @@ const NewsPage: React.FC<NewsProps> = ({ initialData, initialPage }) => {
         throw new TypeError('Expected an array of news items');
       }
 
-      if (result.length === 0) {
+      const newsData: News[] = result.map((item: any) => ({
+        ...item,
+        author: item.author || 'Unknown',
+      }));
+
+      if (newsData.length === 0) {
         setHasMore(false);
-        setShowEndMessage(true); // Show end message
+        setShowEndMessage(true);
       } else {
-        setNews(prevNews => [...prevNews, ...result]);
+        setNews(prevNews => [...prevNews, ...newsData]);
         setCurrentPage(nextPage);
-        setShowEndMessage(false); // Hide end message if more items are added
+        setShowEndMessage(false);
       }
     } catch (error) {
       console.error('Error fetching more data:', error);
@@ -71,21 +76,22 @@ const NewsPage: React.FC<NewsProps> = ({ initialData, initialPage }) => {
       }
     };
   }, [loading, hasMore]);
-
   return (
     <>
       <div className={styles.gridContainer}>
         {news.map((post) => (
           <div key={post.id} className={styles.gridItem}>
-            {post.image && (
-              <img
-                src={post.image}
+            {post.imageUrl && (
+              <Image
+                src={encodeURI(post.imageUrl)}
                 alt={post.title}
                 className={styles.image}
+                width={640}
+                height={320}
               />
             )}
             <h2>{post.title}</h2>
-            <p>{post.author}</p>
+            <p>{post?.author}</p>
             <p>{post.headline}</p>
           </div>
         ))}

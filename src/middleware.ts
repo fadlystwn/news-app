@@ -12,7 +12,12 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  updateSession(request)
+  try {
+    updateSession(request)
+  } catch (error) {
+    console.error('Failed to update session:', error)
+  }
+
   return NextResponse.next()
 }
 

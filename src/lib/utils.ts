@@ -40,13 +40,15 @@ export function useLoadItems() {
   async function loadMore() {
     setLoading(true);
     try {
-      const { data, hasNextPage: newHasNextPage } = await loadItems(
-        items.length,
-      );
+      const { data, hasNextPage: newHasNextPage } = await loadItems(items.length);
       setItems((current) => [...current, ...data]);
       setHasNextPage(newHasNextPage);
-    } catch (err) {
-      setError(err);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err);
+      } else {
+        setError(new Error('An unknown error occurred'));
+      }
     } finally {
       setLoading(false);
     }
