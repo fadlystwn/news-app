@@ -42,6 +42,7 @@ const Navigation = () => {
       <ul className={`${styles.menu} ${isOpen ? styles.open : ''}`}>
         <li><Link href="/">Home</Link></li>
         <li><Link href="/about">About</Link></li>
+        {!isLoggedIn && (<li><Link href="/register">Register</Link></li>)}
         {isLoggedIn ? (
           <>
             <li><Link href="/profile">Profile</Link></li>
