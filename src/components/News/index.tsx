@@ -1,8 +1,9 @@
 'use client'
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './news.module.css';
-import { News } from '../types/news';
+import { News } from '../../types/news';
 
 type NewsProps = {
   initialData: News[];
@@ -84,22 +85,29 @@ const NewsPage: React.FC<NewsProps> = ({ initialData, initialPage }) => {
   return (
     <>
       <div className={styles.gridContainer}>
-        {news.map((post) => (
-          <div key={post.id} className={styles.gridItem}>
-            {post.imageUrl && (
-              <Image
-                src={encodeURI(post.imageUrl)}
-                alt={post.title}
-                className={styles.image}
-                width={640}
-                height={320}
-              />
-            )}
-            <h2>{post.title}</h2>
-            <p>{post?.author}</p>
-            <p>{post.headline}</p>
-          </div>
-        ))}
+        {news.map((post) => {
+
+          return (
+            (
+              <Link key={post.id} href={`/news/${post.id}`}>
+                <div key={post.id} className={styles.gridItem}>
+                  {post.imageUrl && (
+                    <Image
+                      src={encodeURI(post.imageUrl)}
+                      alt={post.title}
+                      className={styles.image}
+                      width={640}
+                      height={320}
+                    />
+                  )}
+                  <h2>{post.title}</h2>
+                  <p>{post?.author}</p>
+                  <p>{post.headline}</p>
+                </div>
+              </Link>
+            )
+          )
+        })}
       </div>
       {loading && (
         <div className={styles.loader}><p>Loading...</p></div>
