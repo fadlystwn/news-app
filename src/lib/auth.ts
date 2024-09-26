@@ -61,10 +61,14 @@ export async function getSession() {
 
 export async function updateSession(request: NextRequest) {
   const session = request.cookies.get("session")?.value;
-  if (!session) return;
+  if (!session) return NextResponse.next();
 
-  // Refresh the session so it doesn't expire
   const parsed = await decrypt(session);
+
+  if (!parsed) {
+    return NextResponse.redirect('/login');
+  }
+
   parsed.expires = new Date(Date.now() + 10 * 60 * 1000);
   const res = NextResponse.next();
   res.cookies.set({
