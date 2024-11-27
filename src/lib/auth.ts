@@ -17,12 +17,13 @@ export async function encrypt(payload: any) {
 
 export async function decrypt(input: string): Promise<any> {
   try {
+    console.log('JWT being verified');
     const { payload } = await jwtVerify(input, key, {
       algorithms: ["HS256"],
     });
     return payload;
   } catch (error) {
-    console.error('Failed to verify JWT:', error);
+    console.error('Failed to verify JWT:');
   }
 }
 
@@ -66,7 +67,7 @@ export async function updateSession(request: NextRequest) {
   const parsed = await decrypt(session);
 
   if (!parsed) {
-    return NextResponse.redirect('/login');
+    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/login`); 
   }
 
   parsed.expires = new Date(Date.now() + 10 * 60 * 1000);
@@ -82,5 +83,5 @@ export async function updateSession(request: NextRequest) {
 
 export async function logout() {
   cookies().delete("session");
-  redirect('/login')
+  redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/login`); 
 }
