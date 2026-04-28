@@ -1,7 +1,6 @@
 "use client";
 
-import register from '@/actions/register'; // Assuming you have a register action similar to login
-import styles from './register.module.css';
+import register from '@/actions/register';
 import { useFormState } from 'react-dom';
 
 const initialState = {
@@ -12,59 +11,61 @@ export default function RegisterPage() {
 
   const [state, formAction] = useFormState(register, initialState)
 
+  const inputClass = "w-full p-3 mb-1 border border-gray-300 rounded-xl bg-gray-50 font-sans dark:bg-gray-800 dark:border-gray-600 dark:text-white";
+
   return (
-    <div className={styles.container}>
-      <form className={styles.form} action={formAction}>
+    <div className="flex justify-center items-center min-h-screen bg-gray-200 dark:bg-black">
+      <form className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-md w-full max-w-sm" action={formAction}>
         <h2>Register</h2>
-        <div className={styles.inputGroup}>
+        <div className="mb-3">
           <input
             name="name"
             type="text"
             placeholder="Name"
-            className={styles.input}
+            className={inputClass}
             required
           />
           <p aria-live="polite" className="error-field sr-only">
             {state?.errors?.name}
           </p>
         </div>
-        <div className={styles.inputGroup}>
+        <div className="mb-3">
           <input
             name="email"
             type="email"
             placeholder="Email"
-            className={styles.input}
+            className={inputClass}
             required
           />
           <p aria-live="polite" className="error-field sr-only">
             {state?.errors?.email}
           </p>
         </div>
-        <div className={styles.inputGroup}>
+        <div className="mb-3">
           <input
             name="password"
             type="password"
             placeholder="Password"
-            className={styles.input}
+            className={inputClass}
             required
           />
           <p aria-live="polite" className="error-field sr-only">
             {state?.errors?.confirmpassword}
           </p>
         </div>
-        <div className={styles.inputGroup}>
+        <div className="mb-3">
           <input
             name="confirmpassword"
             type="password"
             placeholder="Confirm Password"
-            className={styles.input}
+            className={inputClass}
             required
           />
         </div>
         <p aria-live="polite" className="error-field sr-only">
           {state?.errors?.confirmpassword}
         </p>
-        <button type="submit" className={styles.button}>
+        <button type="submit" className="w-full p-3 bg-gray-800 border border-blue-600 rounded-xl text-white text-base font-sans cursor-pointer transition-colors hover:bg-blue-600 hover:border-blue-700 active:bg-blue-700 dark:bg-blue-600 dark:border-blue-500">
           Register
         </button>
       </form>

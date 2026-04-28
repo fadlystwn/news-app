@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { getSession, logout } from '@/lib/auth';
 import Link from 'next/link';
-import styles from './navigation.module.css';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,24 +31,40 @@ const Navigation = () => {
   }, []);
 
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.logo}>
+    <nav className="h-[60px] flex justify-between items-center px-5 border-b border-gray-200 bg-white dark:bg-gray-900 dark:border-gray-700 relative">
+      <div className="text-2xl font-bold font-serif">
         <Link href="/">MySite</Link>
       </div>
-      <button className={styles.menuToggle} onClick={toggleMenu}>
+      <button
+        className="md:hidden bg-transparent border-none text-2xl cursor-pointer text-gray-800 dark:text-white"
+        onClick={toggleMenu}
+      >
         ☰
       </button>
-      <ul className={`${styles.menu} ${isOpen ? styles.open : ''}`}>
-        <li><Link href="/">Home</Link></li>
-        <li><Link href="/about">About</Link></li>
-        {!isLoggedIn && (<li><Link href="/register">Register</Link></li>)}
+      <ul className={`list-none m-0 p-0 md:flex md:items-center md:static md:flex-row md:bg-transparent md:border-none md:w-auto md:p-0
+        ${isOpen
+          ? 'flex flex-col absolute top-[60px] left-0 w-full bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 z-50'
+          : 'hidden md:flex'
+        }`}>
+        <li className="md:ml-5 border-b border-gray-200 dark:border-gray-700 md:border-none px-5 py-3 md:p-0"><Link href="/" className="font-sans hover:underline">Home</Link></li>
+        <li className="md:ml-5 border-b border-gray-200 dark:border-gray-700 md:border-none px-5 py-3 md:p-0"><Link href="/about" className="font-sans hover:underline">About</Link></li>
+        {!isLoggedIn && (
+          <li className="md:ml-5 border-b border-gray-200 dark:border-gray-700 md:border-none px-5 py-3 md:p-0"><Link href="/register" className="font-sans hover:underline">Register</Link></li>
+        )}
         {isLoggedIn ? (
           <>
-            <li><Link href="/profile">Profile</Link></li>
-            <li><button onClick={handleLogout}>Logout</button></li>
+            <li className="md:ml-5 border-b border-gray-200 dark:border-gray-700 md:border-none px-5 py-3 md:p-0"><Link href="/profile" className="font-sans hover:underline">Profile</Link></li>
+            <li className="md:ml-5 border-b border-gray-200 dark:border-gray-700 md:border-none px-5 py-3 md:p-0">
+              <button
+                onClick={handleLogout}
+                className="bg-transparent border-none p-0 text-base font-sans cursor-pointer text-inherit hover:underline"
+              >
+                Logout
+              </button>
+            </li>
           </>
         ) : (
-          <li><Link href="/login">Login</Link></li>
+          <li className="md:ml-5 border-b border-gray-200 dark:border-gray-700 md:border-none px-5 py-3 md:p-0"><Link href="/login" className="font-sans hover:underline">Login</Link></li>
         )}
       </ul>
     </nav>

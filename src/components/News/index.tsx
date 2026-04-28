@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from './news.module.css';
 import { News } from '../../types/news';
 
 type NewsProps = {
@@ -84,18 +83,18 @@ const NewsPage: React.FC<NewsProps> = ({ initialData, initialPage }) => {
 
   return (
     <>
-      <div className={styles.gridContainer}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_3fr_1fr] gap-5 max-w-[1200px] mx-auto px-4 py-4">
         {news.map((post) => {
 
           return (
             (
               <Link key={post.id} href={`/news/${post.id}`}>
-                <div key={post.id} className={styles.gridItem}>
+                <div key={post.id} className="p-4 bg-white dark:bg-gray-800 overflow-hidden">
                   {post.imageUrl && (
                     <Image
                       src={encodeURI(post.imageUrl)}
                       alt={post.title}
-                      className={styles.image}
+                      className="w-full h-auto border-b border-gray-200 mb-3"
                       width={640}
                       height={320}
                     />
@@ -110,13 +109,13 @@ const NewsPage: React.FC<NewsProps> = ({ initialData, initialPage }) => {
         })}
       </div>
       {loading && (
-        <div className={styles.loader}><p>Loading...</p></div>
+        <div className="h-12 text-center bg-gray-200 dark:bg-gray-700 pt-4 my-4"><p>Loading...</p></div>
       )}
       {hasMore && !loading && (
-        <div ref={loaderRef} className={styles.loader}><p>Load more...</p></div>
+        <div ref={loaderRef} className="h-12 text-center bg-gray-200 dark:bg-gray-700 pt-4 my-4"><p>Load more...</p></div>
       )}
       {showEndMessage && !loading && (
-        <div className={styles.endMessage}><p>No more news.</p></div>
+        <div className="h-12 text-center bg-gray-100 dark:bg-gray-800 pt-4 my-4 text-gray-500"><p>No more news.</p></div>
       )}
     </>
   );
