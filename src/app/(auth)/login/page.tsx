@@ -2,6 +2,8 @@
 
 import login from '@/actions/login';
 import { useFormState } from 'react-dom';
+import { useEffect } from 'react';
+import { useToast } from '@/components/Toast/ToastContext';
 
 const initialState = {
   message: ''
@@ -10,7 +12,13 @@ const initialState = {
 export default function LoginPage() {
 
   const [state, formAction] = useFormState(login, initialState)
-  console.log(state)
+  const { addToast } = useToast();
+
+  useEffect(() => {
+    if (state?.message) {
+      addToast(state.message, 'error');
+    }
+  }, [state, addToast]);
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-200 dark:bg-black">

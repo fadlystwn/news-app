@@ -2,6 +2,8 @@
 
 import register from '@/actions/register';
 import { useFormState } from 'react-dom';
+import { useEffect } from 'react';
+import { useToast } from '@/components/Toast/ToastContext';
 
 const initialState = {
   message: ''
@@ -10,6 +12,13 @@ const initialState = {
 export default function RegisterPage() {
 
   const [state, formAction] = useFormState(register, initialState)
+  const { addToast } = useToast();
+
+  useEffect(() => {
+    if (state?.message) {
+      addToast(state.message, 'error');
+    }
+  }, [state, addToast]);
 
   const inputClass = "w-full p-3 mb-1 border border-gray-300 rounded-xl bg-gray-50 font-sans dark:bg-gray-800 dark:border-gray-600 dark:text-white";
 

@@ -6,18 +6,36 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  darkMode: 'media',
+  darkMode: 'class',
   theme: {
     extend: {
+      colors: {
+        background: 'var(--bg)',
+        surface: 'var(--surface)',
+        'surface-elevated': 'var(--surface-elevated)',
+        primary: 'var(--primary)',
+        secondary: 'var(--secondary)',
+        muted: 'var(--muted)',
+        border: 'var(--border)',
+        'border-strong': 'var(--border-strong)',
+      },
       fontFamily: {
-        serif: ['"Times New Roman"', 'Georgia', 'serif'],
-        sans: ['Arial', 'Helvetica', 'sans-serif'],
+        serif: ['Playfair Display', 'serif'],
+        sans: ['Inter', 'sans-serif'],
       },
-      borderRadius: {
-        xl: '12px',
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-in-out',
+        'slide-up': 'slideUp 0.3s ease-out',
       },
-      maxWidth: {
-        content: '1100px',
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(10px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
       },
     },
   },
